@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;500&display=swap" rel="stylesheet">
+    <title>ASCII Art Converter</title>
+</head>
+<body>
+    <h1>ASCII Art Converter</h1>
+    <div class="container">
+        <form id="converter-form" class="form">
+            <h2>Input text</h2>
+            <textarea type="text" name="input-text" class="input-text" id="input-text" cols="30" rows="10"></textarea>
+            <div id="error-message" class="error-message" style="color: red"></div>
+            <div class="selector">
+                <div class="font-selector">
+                    <label for="font-select">Select font:</label>
+                    <select id="font-select" name="font">
+                        <option value="standard">Standard</option>
+                        <option value="thinkertoy">Thinkertoy</option>
+                        <option value="shadow">Shadow</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <form class="form-output" action="/download" method="POST">
+            <h2>Output</h2>
+            <pre name="output-text" id="output-text"></pre>
+            <textarea name="downloadText" id="downloadText" cols="30" rows="10" style="display: none;"></textarea>
+    <div class="buttons">
+            <div class="output-buttons">
+                <button type="submit" id="download">Save in file</button>
+            </div>
+        </form>
+        <div class="output-buttons">
+            <button id="copy-button">Copy result</button>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    document.getElementById("converter-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    sendData(); 
+});
+
+document.getElementById("input-text").addEventListener("input", function(event) {
+    sendData();
+});
+
+
+document.getElementById("font-select").addEventListener("input", function(event) {
+    sendData(); 
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const copyButton = document.getElementById("copy-button");
+    const outputText = document.getElementById("output-text");
+
+    copyButton.addEventListener("click", function () {
+        const textToCopy = outputText.innerText;
+
+        const tempInput = document.createElement("textarea");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        alert("Result copied to clipboard!");
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const downloadButton = document.getElementById("download");
+    const outputText = document.getElementById("downloadText").innerText;
+    const url  = "download"
+    downloadButton.addEventListener("click", function () {
+        let data = {
+            ascii:outputText.innerText
+        }
+        fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    });
+});
+
+
+function sendData() {
+    var text = document.getElementById("input-text").value;
+    var font = document.getElementById("font-select").value;
+
+    var url = "ascii-art";
+
+    var data = {
+        text: text,
+        font: font
+    };
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(responseData => {
+        var outputElement = document.getElementById("output-text");
+        var errorElement = document.getElementById("error-message");
+        var download = document.getElementById("downloadText");
+        errorElement.textContent = responseData.message
+        outputElement.textContent = responseData.asciiText;
+        download.value = responseData.asciiText;
+    })
+    .catch(error => {
+        console.log(error.message)
+    });
+}
+
+</script>
+</html>
+
+

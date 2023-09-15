@@ -1,0 +1,178 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Playfair Display', 'Open Sans', monospace;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    margin-top: 0;
+
+}
+
+body {
+    font-family: 'Playfair Display','Open Sans', monospace;
+    font-weight: 300;
+    color: #f9f9f9;
+    background-image: url('/static/images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 40px;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    background-color: #1e373c75;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1366px;
+    text-align: center;
+    height: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+
+@media (min-width: 400px) and (max-width: 640px) {
+    h1 {   
+        font-size: 26px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    * {
+        font-size: 12px;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 400px){
+    h1 {   
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 14px;
+    }
+    * {
+        font-size: 10px;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+
+/* -----------------*/
+
+.form {
+    min-height: 25%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input-text {
+    padding: 10px;
+    height: 100%;
+}
+
+select {
+    font-family: 'Playfair Display','Open Sans', monospace;
+    font-weight: 500;
+}
+
+.font-selector {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: 10px 0;
+}
+
+/* -----------------*/
+
+.buttons{
+    display: flex;
+    justify-content: center; 
+    padding: 0 5px;
+    align-items: center; 
+    margin-top: 10px; 
+}
+
+.output-buttons {
+    padding: 0 5px;
+    align-items: center; 
+    margin-top: 10px;
+}
+.copy-button {
+    padding: 0 5px;
+    align-items: center; 
+    margin-top: 10px;
+}
+
+button {
+    background-color: #fff;
+    color: #294b52;
+    border: none;
+    padding: 10px 20px; /* Добавлено для большей площади клика */
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 10px 5px;
+}
+
+button:hover {
+    background-color: hsl(243, 81%, 45%);
+    color: #fff;
+}
+
+pre {
+    word-wrap: break-word;
+    font-family:'Open Sans', monospace;
+    border: 1px solid #fff;
+    padding: 10px;
+    overflow: auto;
+    height: 50vh;
+    text-align: left;
+}
+
+
+
+/*------------------------------*/
+/*------------not found---------------*/
+
+.not-found {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.not-found a {
+    text-decoration: none;
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #6EC2A7;
+}
+
+@media (max-height: 900px) {
+    pre {
+        height: calc(50vh - 50px);
+    }
+}
+
